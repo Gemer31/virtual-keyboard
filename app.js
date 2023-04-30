@@ -4,6 +4,8 @@ const KEYBOARD_DATA = [
       'keys': {
         'rus': '1',
         'eng': '1',
+        "caps": '1',
+        'shiftCaps': '!'
       },
       'keyCode': 49,
       'code': 'Digit1',
@@ -12,6 +14,8 @@ const KEYBOARD_DATA = [
       'keys': {
         'rus': '2',
         'eng': '2',
+        "caps": '2',
+        'shiftCaps': '@'
       },
       'keyCode': 50,
       'code': 'Digit2',
@@ -20,6 +24,8 @@ const KEYBOARD_DATA = [
       'keys': {
         'rus': 'Backspace',
         'eng': 'Backspace',
+        "caps": 'Backspace',
+        'shiftCaps': 'Backspace'
       },
       'keyCode': 8,
       'code': 'Backspace',
@@ -28,17 +34,20 @@ const KEYBOARD_DATA = [
       'keys': {
         'rus': 'Del',
         'eng': 'Del',
+        "caps": 'Del',
+        'shiftCaps': 'Del'
       },
       'keyCode': 46,
       'code': 'Delete',
     },
   ],
-
   [
     {
       'keys': {
         'rus': 'CapsLock',
         'eng': 'CapsLock',
+        "caps": 'CapsLock',
+        'shiftCaps': 'CapsLock'
       },
       'keyCode': 20,
       'code': 'CapsLock',
@@ -47,6 +56,8 @@ const KEYBOARD_DATA = [
       'keys': {
         'rus': 'Shift',
         'eng': 'Shift',
+        "caps": 'Shift',
+        'shiftCaps': 'Shift'
       },
       'keyCode': 16,
       'code': 'ShiftLeft',
@@ -85,6 +96,8 @@ const KEYBOARD_DATA = [
       'keys': {
         'rus': 'Ctrl',
         'eng': 'Ctrl',
+        "caps": 'Ctrl',
+        'shiftCaps': 'Ctrl'
       },
       'keyCode': 17,
       'code': 'ControlLeft',
@@ -93,6 +106,8 @@ const KEYBOARD_DATA = [
       'keys': {
         'rus': 'Alt',
         'eng': 'Alt',
+        "caps": 'Alt',
+        'shiftCaps': 'Alt'
       },
       'keyCode': 18,
       'code': 'AltLeft',
@@ -153,8 +168,12 @@ function createButton(data) {
 
     const lowerCaseContainer = document.createElement('span');
     const upperCaseContainer = document.createElement('span');
+    const capsContainer = document.createElement('span');
+    const shiftCapsContainer = document.createElement('span');
     lowerCaseContainer.className = 'lowerCase';
     upperCaseContainer.className = 'upperCase';
+    capsContainer.className = 'caps';
+    shiftCapsContainer.className = 'shiftCaps';
 
     if (typeof data.keys[keyType] === 'string') {
       lowerCaseContainer.innerText = data.keys[keyType];
@@ -164,12 +183,27 @@ function createButton(data) {
       upperCaseContainer.innerText = data.keys[keyType]['upperCase'];
     }
 
+    capsContainer.innerText = data.keys['caps'] || data.keys[keyType]['upperCase'];
+    shiftCapsContainer.innerText = data.keys['shiftCaps'] || data.keys[keyType]['lowerCase'];
+
     keyType !== currentLang && langContainer.classList.add('hidden');
     upperCaseContainer.classList.add('hidden');
+    capsContainer.classList.add('hidden');
+    shiftCapsContainer.classList.add('hidden');
 
     langContainer.append(lowerCaseContainer, upperCaseContainer);
     button.append(langContainer);
   }
+
+  button.addEventListener("mouseup", event => processKeyupEvent(data))
+  button.addEventListener("mousedown", event =>
+    processKeydownEvent({
+      ...data,
+      key: event.srcElement.nodeName === "SPAN"
+        ? event.srcElement.innerText
+        : [...event.srcElement.childNodes].filter(child => !child.className.includes("hidden"))[0].innerText,
+    })
+  );
 
   return button;
 }
@@ -250,7 +284,11 @@ function onShiftClick(value) {
 }
 
 document.addEventListener('keydown', event => {
-  event.preventDefault();
+  processKeydownEvent(event);
+});
+
+function processKeydownEvent(event) {
+  event.preventDefault?.();
 
   const eventSource = document.getElementById(event.code);
 
@@ -274,10 +312,12 @@ document.addEventListener('keydown', event => {
   } else if (!unwritableCodes.includes(event.code)) {
     textarea.value += event.key;
   }
-});
+}
 
-document.addEventListener('keyup', event => {
-  event.preventDefault();
+document.addEventListener('keyup', event => processKeyupEvent(event));
+
+function processKeyupEvent(event) {
+  event.preventDefault?.();
 
   (event.code === 'ShiftLeft' || event.code === 'ShiftRight') && onShiftClick(false);
 
@@ -288,6 +328,6 @@ document.addEventListener('keyup', event => {
 
   altActive = (event.code === 'AltLeft' || event.code === 'AltRight') ? false : altActive;
   ctrlActive = (event.code === 'ControlLeft' || event.code === 'ControlRight') ? false : ctrlActive;
-});
+}
 
 document.body.append(title, textarea, keyboard, langSwitchInfo);
