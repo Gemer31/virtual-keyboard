@@ -174,4 +174,120 @@ function createButton(data) {
   return button;
 }
 
+function backSpaceClick() {
+  let text = textarea.value;
+  const cursorPosition = textarea.selectionEnd;
+
+  if (cursorPosition) {
+    textarea.value = text.substr(0, cursorPosition - 1) + text.substr(cursorPosition, text.length - 1);
+    textarea.selectionEnd = cursorPosition - 1;
+  }
+}
+
+function deleteClick() {
+  let text = textarea.value;
+  const cursorPosition = textarea.selectionEnd;
+
+  if (cursorPosition !== text.length) {
+    textarea.value = text.substr(0, cursorPosition) + text.substr(cursorPosition + 1, text.length);
+    textarea.selectionEnd = cursorPosition;
+  }
+}
+
+function changeLang() {
+  currentLang = currentLang === RUSSIAN_LANG ? ENGLISH_LANG : RUSSIAN_LANG;
+  localStorage.setItem('lang', currentLang);
+
+  const rusLangElements = document.getElementsByClassName(RUSSIAN_LANG);
+  const engLangElements = document.getElementsByClassName(ENGLISH_LANG);
+
+  if (currentLang === RUSSIAN_LANG) {
+    [...rusLangElements].forEach(element => element.classList.remove('hidden'));
+    [...engLangElements].forEach(element => element.classList.add('hidden'));
+  } else {
+    [...rusLangElements].forEach(element => element.classList.add('hidden'));
+    [...engLangElements].forEach(element => element.classList.remove('hidden'));
+  }
+}
+
+function onCapsClick() {
+  capsActive = !capsActive;
+  const lowerCaseElements = document.getElementsByClassName('lowerCase');
+  const upperCaseElements = document.getElementsByClassName('upperCase');
+
+  if (capsActive) {
+    [...lowerCaseElements].forEach(element => element.classList.add('hidden'));
+    [...upperCaseElements].forEach(element => element.classList.remove('hidden'));
+  } else {
+    [...lowerCaseElements].forEach(element => element.classList.remove('hidden'));
+    [...upperCaseElements].forEach(element => element.classList.add('hidden'));
+  }
+}
+
+function onShiftClick(value) {
+  shiftActive = value;
+
+  const lowerCaseElements = document.getElementsByClassName('lowerCase');
+  const upperCaseElements = document.getElementsByClassName('upperCase');
+
+  if (capsActive) {
+    if (shiftActive) {
+      [...lowerCaseElements].forEach(element => element.classList.add('hidden'));
+      [...upperCaseElements].forEach(element => element.classList.remove('hidden'));
+    } else {
+      [...lowerCaseElements].forEach(element => element.classList.remove('hidden'));
+      [...upperCaseElements].forEach(element => element.classList.add('hidden'));
+    }
+  } else {
+    if (shiftActive) {
+      [...lowerCaseElements].forEach(element => element.classList.remove('hidden'));
+      [...upperCaseElements].forEach(element => element.classList.add('hidden'));
+    } else {
+      [...lowerCaseElements].forEach(element => element.classList.add('hidden'));
+      [...upperCaseElements].forEach(element => element.classList.remove('hidden'));
+    }
+  }
+}
+
+document.addEventListener('keydown', event => {
+  event.preventDefault();
+
+  const eventSource = document.getElementById(event.code);
+
+  if (eventSource) {
+    event.code === 'CapsLock' && capsActive
+      ? eventSource.classList.remove('active')
+      : eventSource.classList.add('active');
+  }
+
+  (event.code === 'ShiftLeft' || event.code === 'ShiftRight') && onShiftClick(true);
+  event.code === 'CapsLock' && onCapsClick();
+
+  altActive = event.code === 'AltLeft' || event.code === 'AltRight' || altActive;
+  ctrlActive = event.code === 'ControlLeft' || event.code === 'ControlRight' || ctrlActive;
+  altActive && ctrlActive && changeLang();
+
+  if (event.code === "Backspace") {
+    backSpaceClick();
+  } else if (event.code === "Delete") {
+    deleteClick();
+  } else if (!unwritableCodes.includes(event.code)) {
+    textarea.value += event.key;
+  }
+});
+
+document.addEventListener('keyup', event => {
+  event.preventDefault();
+
+  (event.code === 'ShiftLeft' || event.code === 'ShiftRight') && onShiftClick(false);
+
+  const eventSource = document.getElementById(event.code);
+  if (eventSource && event.code !== 'CapsLock') {
+    eventSource.classList.remove('active');
+  }
+
+  altActive = (event.code === 'AltLeft' || event.code === 'AltRight') ? false : altActive;
+  ctrlActive = (event.code === 'ControlLeft' || event.code === 'ControlRight') ? false : ctrlActive;
+});
+
 document.body.append(title, textarea, keyboard, langSwitchInfo);
