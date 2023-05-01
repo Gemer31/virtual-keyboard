@@ -2,12 +2,24 @@ const KEYBOARD_DATA = [
   [
     {
       'keys': {
+        'rus': {
+          'lowerCase': 'ё',
+          'upperCase': 'Ё',
+        },
+        'eng': {
+          'lowerCase': '\`',
+          'upperCase': '~',
+        },
+      },
+      'code': 'Backquote',
+    },
+    {
+      'keys': {
         'rus': '1',
         'eng': '1',
         'caps': '1',
         'shiftCaps': '!'
       },
-      'keyCode': 49,
       'code': 'Digit1',
     },
     {
@@ -17,8 +29,97 @@ const KEYBOARD_DATA = [
         'caps': '2',
         'shiftCaps': '@'
       },
-      'keyCode': 50,
       'code': 'Digit2',
+    },
+    {
+      'keys': {
+        'rus': '3',
+        'eng': '3',
+        'caps': '3',
+        'shiftCaps': '#'
+      },
+      'code': 'Digit3',
+    },
+    {
+      'keys': {
+        'rus': '4',
+        'eng': '4',
+        'caps': '4',
+        'shiftCaps': '$'
+      },
+      'code': 'Digit4',
+    },
+    {
+      'keys': {
+        'rus': '5',
+        'eng': '5',
+        'caps': '5',
+        'shiftCaps': '%'
+      },
+      'code': 'Digit5',
+    },
+    {
+      'keys': {
+        'rus': '6',
+        'eng': '6',
+        'caps': '6',
+        'shiftCaps': '^'
+      },
+      'code': 'Digit6',
+    },
+    {
+      'keys': {
+        'rus': '7',
+        'eng': '7',
+        'caps': '7',
+        'shiftCaps': '&'
+      },
+      'code': 'Digit7',
+    },
+    {
+      'keys': {
+        'rus': '8',
+        'eng': '8',
+        'caps': '8',
+        'shiftCaps': '*'
+      },
+      'code': 'Digit8',
+    },
+    {
+      'keys': {
+        'rus': '9',
+        'eng': '9',
+        'caps': '9',
+        'shiftCaps': '('
+      },
+      'code': 'Digit9',
+    },
+    {
+      'keys': {
+        'rus': '0',
+        'eng': '0',
+        'caps': '0',
+        'shiftCaps': ')'
+      },
+      'code': 'Digit0',
+    },
+    {
+      'keys': {
+        'rus': '-',
+        'eng': '-',
+        'caps': '-',
+        'shiftCaps': '_'
+      },
+      'code': 'Minus',
+    },
+    {
+      'keys': {
+        'rus': '=',
+        'eng': '=',
+        'caps': '=',
+        'shiftCaps': '+'
+      },
+      'code': 'Equal',
     },
     {
       'keys': {
@@ -27,7 +128,6 @@ const KEYBOARD_DATA = [
         'caps': 'Backspace',
         'shiftCaps': 'Backspace'
       },
-      'keyCode': 8,
       'code': 'Backspace',
     },
   ],
@@ -39,8 +139,176 @@ const KEYBOARD_DATA = [
         'caps': 'Tab',
         'shiftCaps': 'Tab'
       },
-      'keyCode': 9,
       'code': 'Tab',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'й',
+          'upperCase': 'Й',
+        },
+        'eng': {
+          'lowerCase': 'q',
+          'upperCase': 'Q',
+        },
+      },
+      'code': 'KeyQ',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'ц',
+          'upperCase': 'Ц',
+        },
+        'eng': {
+          'lowerCase': 'w',
+          'upperCase': 'W',
+        },
+      },
+      'code': 'KeyW',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'у',
+          'upperCase': 'У',
+        },
+        'eng': {
+          'lowerCase': 'e',
+          'upperCase': 'E',
+        },
+      },
+      'code': 'KeyE',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'к',
+          'upperCase': 'К',
+        },
+        'eng': {
+          'lowerCase': 'r',
+          'upperCase': 'R',
+        },
+      },
+      'code': 'KeyR',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'е',
+          'upperCase': 'Е',
+        },
+        'eng': {
+          'lowerCase': 't',
+          'upperCase': 'T',
+        },
+      },
+      'code': 'KeyT',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'н',
+          'upperCase': 'Н',
+        },
+        'eng': {
+          'lowerCase': 'y',
+          'upperCase': 'Y',
+        },
+      },
+      'code': 'KeyY',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'г',
+          'upperCase': 'Г',
+        },
+        'eng': {
+          'lowerCase': 'u',
+          'upperCase': 'U',
+        },
+      },
+      'code': 'KeyU',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'ш',
+          'upperCase': 'Ш',
+        },
+        'eng': {
+          'lowerCase': 'i',
+          'upperCase': 'I',
+        },
+      },
+      'code': 'KeyI',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'щ',
+          'upperCase': 'Щ',
+        },
+        'eng': {
+          'lowerCase': 'o',
+          'upperCase': 'O',
+        },
+      },
+      'code': 'KeyO',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'з',
+          'upperCase': 'З',
+        },
+        'eng': {
+          'lowerCase': 'p',
+          'upperCase': 'P',
+        },
+      },
+      'code': 'KeyP',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'х',
+          'upperCase': 'Х',
+        },
+        'eng': {
+          'lowerCase': '\[',
+          'upperCase': '\{',
+        },
+      },
+      'code': 'BracketLeft',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'ъ',
+          'upperCase': 'Ъ',
+        },
+        'eng': {
+          'lowerCase': '\]',
+          'upperCase': '\}',
+        },
+      },
+      'code': 'BracketRight',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': '\\',
+          'upperCase': '/',
+        },
+        'eng': {
+          'lowerCase': '\\',
+          'upperCase': '\|',
+        },
+      },
+      'code': 'Backslash',
     },
     {
       'keys': {
@@ -49,7 +317,6 @@ const KEYBOARD_DATA = [
         'caps': 'Del',
         'shiftCaps': 'Del'
       },
-      'keyCode': 46,
       'code': 'Delete',
     },
   ],
@@ -61,7 +328,6 @@ const KEYBOARD_DATA = [
         'caps': 'CapsLock',
         'shiftCaps': 'CapsLock'
       },
-      'keyCode': 20,
       'code': 'CapsLock',
     },
     {
@@ -75,7 +341,6 @@ const KEYBOARD_DATA = [
           'upperCase': 'A',
         },
       },
-      'keyCode': 65,
       'code': 'KeyA',
     },
     {
@@ -89,10 +354,125 @@ const KEYBOARD_DATA = [
           'upperCase': 'S',
         },
       },
-      'keyCode': 83,
       'code': 'KeyS',
     },
-
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'в',
+          'upperCase': 'В',
+        },
+        'eng': {
+          'lowerCase': 'd',
+          'upperCase': 'D',
+        },
+      },
+      'code': 'KeyD',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'а',
+          'upperCase': 'А',
+        },
+        'eng': {
+          'lowerCase': 'f',
+          'upperCase': 'F',
+        },
+      },
+      'code': 'KeyF',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'п',
+          'upperCase': 'П',
+        },
+        'eng': {
+          'lowerCase': 'g',
+          'upperCase': 'G',
+        },
+      },
+      'code': 'KeyG',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'р',
+          'upperCase': 'Р',
+        },
+        'eng': {
+          'lowerCase': 'h',
+          'upperCase': 'H',
+        },
+      },
+      'code': 'KeyH',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'j',
+          'upperCase': 'J',
+        },
+        'eng': {
+          'lowerCase': 'о',
+          'upperCase': 'О',
+        },
+      },
+      'code': 'KeyJ',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'л',
+          'upperCase': 'Л',
+        },
+        'eng': {
+          'lowerCase': 'k',
+          'upperCase': 'K',
+        },
+      },
+      'code': 'KeyK',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'д',
+          'upperCase': 'Д',
+        },
+        'eng': {
+          'lowerCase': 'l',
+          'upperCase': 'L',
+        },
+      },
+      'code': 'KeyL',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'ж',
+          'upperCase': 'Ж',
+        },
+        'eng': {
+          'lowerCase': ';',
+          'upperCase': ':',
+        },
+      },
+      'code': 'Semicolon',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'э',
+          'upperCase': 'Э',
+        },
+        'eng': {
+          'lowerCase': '\'',
+          'upperCase': '"',
+        },
+      },
+      'code': 'Quote',
+    },
     {
       'keys': {
         'rus': 'Enter',
@@ -100,7 +480,6 @@ const KEYBOARD_DATA = [
         'caps': 'Enter',
         'shiftCaps': 'Enter'
       },
-      'keyCode': 13,
       'code': 'Enter',
     },
   ],
@@ -112,8 +491,133 @@ const KEYBOARD_DATA = [
         'caps': 'Shift',
         'shiftCaps': 'Shift'
       },
-      'keyCode': 16,
       'code': 'ShiftLeft',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'я',
+          'upperCase': 'Я',
+        },
+        'eng': {
+          'lowerCase': 'z',
+          'upperCase': 'Z',
+        },
+      },
+      'code': 'KeyZ',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'ч',
+          'upperCase': 'Ч',
+        },
+        'eng': {
+          'lowerCase': 'x',
+          'upperCase': 'X',
+        },
+      },
+      'code': 'KeyX',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'c',
+          'upperCase': 'C',
+        },
+        'eng': {
+          'lowerCase': 'с',
+          'upperCase': 'C',
+        },
+      },
+      'code': 'KeyC',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'м',
+          'upperCase': 'М',
+        },
+        'eng': {
+          'lowerCase': 'v',
+          'upperCase': 'V',
+        },
+      },
+      'code': 'KeyV',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'и',
+          'upperCase': 'И',
+        },
+        'eng': {
+          'lowerCase': 'b',
+          'upperCase': 'B',
+        },
+      },
+      'code': 'KeyB',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'т',
+          'upperCase': 'Т',
+        },
+        'eng': {
+          'lowerCase': 'n',
+          'upperCase': 'N',
+        },
+      },
+      'code': 'KeyN',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'ь',
+          'upperCase': 'Ь',
+        },
+        'eng': {
+          'lowerCase': 'm',
+          'upperCase': 'M',
+        },
+      },
+      'code': 'KeyM',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'б',
+          'upperCase': 'Б',
+        },
+        'eng': {
+          'lowerCase': ',',
+          'upperCase': '<',
+        },
+      },
+      'code': 'Comma',
+    },
+    {
+      'keys': {
+        'rus': {
+          'lowerCase': 'ю',
+          'upperCase': 'Ю',
+        },
+        'eng': {
+          'lowerCase': '.',
+          'upperCase': '>',
+        },
+      },
+      'code': 'Period',
+    },
+    {
+      'keys': {
+        'rus': '.',
+        'eng': '.',
+        'caps': '.',
+        'shiftCaps': ','
+      },
+      'code': 'Slash',
     },
     {
       'keys': {
@@ -122,7 +626,6 @@ const KEYBOARD_DATA = [
         'caps': '▲',
         'shiftCaps': '▲'
       },
-      'keyCode': 38,
       'code': 'ArrowUp',
     },
     {
@@ -132,7 +635,6 @@ const KEYBOARD_DATA = [
         'caps': 'Shift',
         'shiftCaps': 'Shift'
       },
-      'keyCode': 16,
       'code': 'ShiftRight',
     },
   ],
@@ -144,7 +646,6 @@ const KEYBOARD_DATA = [
         'caps': 'Ctrl',
         'shiftCaps': 'Ctrl'
       },
-      'keyCode': 17,
       'code': 'ControlLeft',
     },
     {
@@ -154,7 +655,6 @@ const KEYBOARD_DATA = [
         'caps': 'Win',
         'shiftCaps': 'Win'
       },
-      'keyCode': 91,
       'code': 'MetaLeft',
     },
     {
@@ -164,7 +664,6 @@ const KEYBOARD_DATA = [
         'caps': 'Alt',
         'shiftCaps': 'Alt'
       },
-      'keyCode': 18,
       'code': 'AltLeft',
     },
     {
@@ -174,7 +673,6 @@ const KEYBOARD_DATA = [
         'caps': ' ',
         'shiftCaps': ' '
       },
-      'keyCode': 32,
       'code': 'Space',
     },
     {
@@ -184,7 +682,6 @@ const KEYBOARD_DATA = [
         'caps': 'Alt',
         'shiftCaps': 'Alt'
       },
-      'keyCode': 18,
       'code': 'AltRight',
     },
     {
@@ -194,7 +691,6 @@ const KEYBOARD_DATA = [
         'caps': '◄',
         'shiftCaps': '◄'
       },
-      'keyCode': 37,
       'code': 'ArrowLeft',
     },
     {
@@ -204,7 +700,6 @@ const KEYBOARD_DATA = [
         'caps': '▼',
         'shiftCaps': '▼'
       },
-      'keyCode': 40,
       'code': 'ArrowDown',
     },
     {
@@ -214,7 +709,6 @@ const KEYBOARD_DATA = [
         'caps': '►',
         'shiftCaps': '►'
       },
-      'keyCode': 39,
       'code': 'ArrowRight',
     },
     {
@@ -224,7 +718,6 @@ const KEYBOARD_DATA = [
         'caps': 'Ctrl',
         'shiftCaps': 'Ctrl'
       },
-      'keyCode': 17,
       'code': 'ControlRight',
     },
   ]
