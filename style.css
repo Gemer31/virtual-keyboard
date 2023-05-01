@@ -22,6 +22,7 @@ body {
 
 .textarea {
 		margin: 10px 0;
+		font-size: 2rem;
 }
 
 .keyboard {
@@ -51,8 +52,8 @@ body {
 		width: fit-content;
 		min-width: 40px;
 		height: 40px;
-		margin-left: 6px;
 		font-weight: 500;
+		font-size: 1rem;
 		line-height: 40px;
 		text-align: center;
 		color: #ffffff;
@@ -62,9 +63,26 @@ body {
 		transition: border-radius 0.3s, background-color 0.3s;
 }
 
+.button:not(:first-child) {
+		margin-left: 6px;
+}
+
+.Enter,
+.ArrowUp,
+.ArrowLeft,
+.ArrowDown,
+.ArrowRight,
 .Backspace,
 .ShiftLeft,
+.ShiftRight,
 .Delete,
+.Tab,
+.MetaLeft,
+.MetaRight,
+.AltLeft,
+.AltRight,
+.ControlLeft,
+.ControlRight,
 .CapsLock {
 		background: #222222;
 }
@@ -82,4 +100,23 @@ body {
 		margin: 10px auto;
 		text-align: center;
 		font-weight: 600;
+}
+
+.Space {
+		width: 330px;
+}
+
+.ShiftLeft,
+.Backspace,
+.CapsLock {
+		width: 100px;
+}
+
+.ShiftRight,
+.Enter {
+		width: 86px;
+}
+
+.Tab {
+		width: 50px;
 }
