@@ -322,24 +322,50 @@ function createButton(data) {
   return button;
 }
 
-function backSpaceClick() {
-  let text = textarea.value;
-  const cursorPosition = textarea.selectionEnd;
+function writeText(event) {
+  const {beforeSelectedText, afterSelectedText, selectedText} = getTextAreaData();
 
-  if (cursorPosition) {
-    textarea.value = text.substr(0, cursorPosition - 1) + text.substr(cursorPosition, text.length - 1);
-    textarea.selectionEnd = cursorPosition - 1;
+  if (event.code === 'Backspace') {
+    textarea.value = selectedText.length
+      ? beforeSelectedText + afterSelectedText
+      : beforeSelectedText.substr(0, beforeSelectedText.length - 1) + afterSelectedText;
+    textarea.selectionEnd = beforeSelectedText.length - 1;
+  } else if (event.code === 'Delete') {
+    textarea.value = selectedText.length
+      ? beforeSelectedText + afterSelectedText
+      : beforeSelectedText + afterSelectedText.substr(1, afterSelectedText.length);
+    textarea.selectionEnd = beforeSelectedText.length;
+  } else if (!unwritableCodes.includes(event.code)) {
+    let key;
+
+    switch (event.key) {
+      case 'Tab': {
+        key = '   ';
+        break;
+      }
+      case 'Enter': {
+        key = '\n';
+        break;
+      }
+      default: {
+        key = getKey(event.code) || event.key;
+      }
+    }
+
+    textarea.value = beforeSelectedText + key + afterSelectedText;
+    textarea.selectionEnd = (beforeSelectedText + key).length;
   }
 }
 
-function deleteClick() {
-  let text = textarea.value;
-  const cursorPosition = textarea.selectionEnd;
+function getTextAreaData() {
+  const cursorStart = textarea.selectionStart;
+  const cursorEnd = textarea.selectionEnd;
 
-  if (cursorPosition !== text.length) {
-    textarea.value = text.substr(0, cursorPosition) + text.substr(cursorPosition + 1, text.length);
-    textarea.selectionEnd = cursorPosition;
-  }
+  return {
+    beforeSelectedText: textarea.value.substr(0, cursorStart),
+    afterSelectedText: textarea.value.substr(cursorEnd, textarea.value.length - 1),
+    selectedText: cursorStart === cursorEnd ? '' : textarea.value.substr(cursorStart, cursorEnd - 1),
+  };
 }
 
 function changeLang() {
@@ -362,13 +388,19 @@ function onCapsClick() {
   capsActive = !capsActive;
   const lowerCaseElements = document.getElementsByClassName('lowerCase');
   const upperCaseElements = document.getElementsByClassName('upperCase');
+  const capsElements = document.getElementsByClassName('caps');
+  const shiftCapsCaseElements = document.getElementsByClassName('shiftCaps');
 
   if (capsActive) {
     [...lowerCaseElements].forEach(element => element.classList.add('hidden'));
     [...upperCaseElements].forEach(element => element.classList.remove('hidden'));
+    [...capsElements].forEach(element => element.classList.add('hidden'));
+    [...shiftCapsCaseElements].forEach(element => element.classList.add('hidden'));
   } else {
     [...lowerCaseElements].forEach(element => element.classList.remove('hidden'));
     [...upperCaseElements].forEach(element => element.classList.add('hidden'));
+    [...capsElements].forEach(element => element.classList.add('hidden'));
+    [...shiftCapsCaseElements].forEach(element => element.classList.add('hidden'));
   }
 }
 
@@ -377,29 +409,46 @@ function onShiftClick(value) {
 
   const lowerCaseElements = document.getElementsByClassName('lowerCase');
   const upperCaseElements = document.getElementsByClassName('upperCase');
+  const capsElements = document.getElementsByClassName('caps');
+  const shiftCapsCaseElements = document.getElementsByClassName('shiftCaps');
 
   if (capsActive) {
     if (shiftActive) {
       [...lowerCaseElements].forEach(element => element.classList.add('hidden'));
-      [...upperCaseElements].forEach(element => element.classList.remove('hidden'));
-    } else {
-      [...lowerCaseElements].forEach(element => element.classList.remove('hidden'));
       [...upperCaseElements].forEach(element => element.classList.add('hidden'));
+      [...capsElements].forEach(element => element.classList.add('hidden'));
+      [...shiftCapsCaseElements].forEach(element => element.classList.remove('hidden'));
+    } else {
+      [...lowerCaseElements].forEach(element => element.classList.add('hidden'));
+      [...upperCaseElements].forEach(element => element.classList.add('hidden'));
+      [...capsElements].forEach(element => element.classList.remove('hidden'));
+      [...shiftCapsCaseElements].forEach(element => element.classList.add('hidden'));
     }
   } else {
     if (shiftActive) {
-      [...lowerCaseElements].forEach(element => element.classList.remove('hidden'));
-      [...upperCaseElements].forEach(element => element.classList.add('hidden'));
-    } else {
       [...lowerCaseElements].forEach(element => element.classList.add('hidden'));
       [...upperCaseElements].forEach(element => element.classList.remove('hidden'));
+      [...capsElements].forEach(element => element.classList.add('hidden'));
+      [...shiftCapsCaseElements].forEach(element => element.classList.add('hidden'));
+    } else {
+      [...lowerCaseElements].forEach(element => element.classList.remove('hidden'));
+      [...upperCaseElements].forEach(element => element.classList.add('hidden'));
+      [...capsElements].forEach(element => element.classList.add('hidden'));
+      [...shiftCapsCaseElements].forEach(element => element.classList.add('hidden'));
     }
   }
 }
 
-document.addEventListener('keydown', event => {
-  processKeydownEvent(event);
-});
+function getKey(code) {
+  const button = document.getElementById(code);
+
+  return button ? [...[...button.childNodes]
+      ?.filter(langContainer => langContainer.className.includes(currentLang))[0]
+      ?.childNodes]
+      ?.filter(valueContainer => !valueContainer.className.includes('hidden'))[0]
+      ?.innerText
+    : null;
+}
 
 function processKeydownEvent(event) {
   event.preventDefault?.();
@@ -419,16 +468,8 @@ function processKeydownEvent(event) {
   ctrlActive = event.code === 'ControlLeft' || event.code === 'ControlRight' || ctrlActive;
   altActive && ctrlActive && changeLang();
 
-  if (event.code === "Backspace") {
-    backSpaceClick();
-  } else if (event.code === "Delete") {
-    deleteClick();
-  } else if (!unwritableCodes.includes(event.code)) {
-    textarea.value += event.key;
-  }
+  writeText(event);
 }
-
-document.addEventListener('keyup', event => processKeyupEvent(event));
 
 function processKeyupEvent(event) {
   event.preventDefault?.();
@@ -444,4 +485,6 @@ function processKeyupEvent(event) {
   ctrlActive = (event.code === 'ControlLeft' || event.code === 'ControlRight') ? false : ctrlActive;
 }
 
+document.addEventListener('keydown', event => processKeydownEvent(event));
+document.addEventListener('keyup', event => processKeyupEvent(event));
 document.body.append(title, textarea, keyboard, langSwitchInfo);
