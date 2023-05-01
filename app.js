@@ -4,7 +4,7 @@ const KEYBOARD_DATA = [
       'keys': {
         'rus': '1',
         'eng': '1',
-        "caps": '1',
+        'caps': '1',
         'shiftCaps': '!'
       },
       'keyCode': 49,
@@ -14,7 +14,7 @@ const KEYBOARD_DATA = [
       'keys': {
         'rus': '2',
         'eng': '2',
-        "caps": '2',
+        'caps': '2',
         'shiftCaps': '@'
       },
       'keyCode': 50,
@@ -24,17 +24,29 @@ const KEYBOARD_DATA = [
       'keys': {
         'rus': 'Backspace',
         'eng': 'Backspace',
-        "caps": 'Backspace',
+        'caps': 'Backspace',
         'shiftCaps': 'Backspace'
       },
       'keyCode': 8,
       'code': 'Backspace',
     },
+  ],
+  [
+    {
+      'keys': {
+        'rus': 'Tab',
+        'eng': 'Tab',
+        'caps': 'Tab',
+        'shiftCaps': 'Tab'
+      },
+      'keyCode': 9,
+      'code': 'Tab',
+    },
     {
       'keys': {
         'rus': 'Del',
         'eng': 'Del',
-        "caps": 'Del',
+        'caps': 'Del',
         'shiftCaps': 'Del'
       },
       'keyCode': 46,
@@ -46,21 +58,11 @@ const KEYBOARD_DATA = [
       'keys': {
         'rus': 'CapsLock',
         'eng': 'CapsLock',
-        "caps": 'CapsLock',
+        'caps': 'CapsLock',
         'shiftCaps': 'CapsLock'
       },
       'keyCode': 20,
       'code': 'CapsLock',
-    },
-    {
-      'keys': {
-        'rus': 'Shift',
-        'eng': 'Shift',
-        "caps": 'Shift',
-        'shiftCaps': 'Shift'
-      },
-      'keyCode': 16,
-      'code': 'ShiftLeft',
     },
     {
       'keys': {
@@ -90,13 +92,56 @@ const KEYBOARD_DATA = [
       'keyCode': 83,
       'code': 'KeyS',
     },
+
+    {
+      'keys': {
+        'rus': 'Enter',
+        'eng': 'Enter',
+        'caps': 'Enter',
+        'shiftCaps': 'Enter'
+      },
+      'keyCode': 13,
+      'code': 'Enter',
+    },
+  ],
+  [
+    {
+      'keys': {
+        'rus': 'Shift',
+        'eng': 'Shift',
+        'caps': 'Shift',
+        'shiftCaps': 'Shift'
+      },
+      'keyCode': 16,
+      'code': 'ShiftLeft',
+    },
+    {
+      'keys': {
+        'rus': '▲',
+        'eng': '▲',
+        'caps': '▲',
+        'shiftCaps': '▲'
+      },
+      'keyCode': 38,
+      'code': 'ArrowUp',
+    },
+    {
+      'keys': {
+        'rus': 'Shift',
+        'eng': 'Shift',
+        'caps': 'Shift',
+        'shiftCaps': 'Shift'
+      },
+      'keyCode': 16,
+      'code': 'ShiftRight',
+    },
   ],
   [
     {
       'keys': {
         'rus': 'Ctrl',
         'eng': 'Ctrl',
-        "caps": 'Ctrl',
+        'caps': 'Ctrl',
         'shiftCaps': 'Ctrl'
       },
       'keyCode': 17,
@@ -104,13 +149,83 @@ const KEYBOARD_DATA = [
     },
     {
       'keys': {
+        'rus': 'Win',
+        'eng': 'Win',
+        'caps': 'Win',
+        'shiftCaps': 'Win'
+      },
+      'keyCode': 91,
+      'code': 'MetaLeft',
+    },
+    {
+      'keys': {
         'rus': 'Alt',
         'eng': 'Alt',
-        "caps": 'Alt',
+        'caps': 'Alt',
         'shiftCaps': 'Alt'
       },
       'keyCode': 18,
       'code': 'AltLeft',
+    },
+    {
+      'keys': {
+        'rus': ' ',
+        'eng': ' ',
+        'caps': ' ',
+        'shiftCaps': ' '
+      },
+      'keyCode': 32,
+      'code': 'Space',
+    },
+    {
+      'keys': {
+        'rus': 'Alt',
+        'eng': 'Alt',
+        'caps': 'Alt',
+        'shiftCaps': 'Alt'
+      },
+      'keyCode': 18,
+      'code': 'AltRight',
+    },
+    {
+      'keys': {
+        'rus': '◄',
+        'eng': '◄',
+        'caps': '◄',
+        'shiftCaps': '◄'
+      },
+      'keyCode': 37,
+      'code': 'ArrowLeft',
+    },
+    {
+      'keys': {
+        'rus': '▼',
+        'eng': '▼',
+        'caps': '▼',
+        'shiftCaps': '▼'
+      },
+      'keyCode': 40,
+      'code': 'ArrowDown',
+    },
+    {
+      'keys': {
+        'rus': '►',
+        'eng': '►',
+        'caps': '►',
+        'shiftCaps': '►'
+      },
+      'keyCode': 39,
+      'code': 'ArrowRight',
+    },
+    {
+      'keys': {
+        'rus': 'Ctrl',
+        'eng': 'Ctrl',
+        'caps': 'Ctrl',
+        'shiftCaps': 'Ctrl'
+      },
+      'keyCode': 17,
+      'code': 'ControlRight',
     },
   ]
 ];
@@ -130,6 +245,8 @@ const unwritableCodes = [
   'ShiftRight',
   'AltLeft',
   'AltRight',
+  'MetaLeft',
+  'MetaRight',
 ];
 
 const title = document.createElement('span');
@@ -163,47 +280,44 @@ function createButton(data) {
   button.className = `button ${data.code}`;
 
   for (let keyType in data.keys) {
-    const langContainer = document.createElement('span');
-    langContainer.className = keyType;
+    if (keyType !== 'shiftCaps' && keyType !== 'caps') {
+      const langContainer = document.createElement('span');
+      langContainer.className = keyType;
 
-    const lowerCaseContainer = document.createElement('span');
-    const upperCaseContainer = document.createElement('span');
-    const capsContainer = document.createElement('span');
-    const shiftCapsContainer = document.createElement('span');
-    lowerCaseContainer.className = 'lowerCase';
-    upperCaseContainer.className = 'upperCase';
-    capsContainer.className = 'caps';
-    shiftCapsContainer.className = 'shiftCaps';
+      const lowerCaseContainer = document.createElement('span');
+      const upperCaseContainer = document.createElement('span');
+      const capsContainer = document.createElement('span');
+      const shiftCapsContainer = document.createElement('span');
+      lowerCaseContainer.className = 'lowerCase';
+      upperCaseContainer.className = 'upperCase hidden';
+      capsContainer.className = 'caps hidden';
+      shiftCapsContainer.className = 'shiftCaps hidden';
 
-    if (typeof data.keys[keyType] === 'string') {
-      lowerCaseContainer.innerText = data.keys[keyType];
-      upperCaseContainer.innerText = data.keys[keyType];
-    } else {
-      lowerCaseContainer.innerText = data.keys[keyType]['lowerCase'];
-      upperCaseContainer.innerText = data.keys[keyType]['upperCase'];
+      if (typeof data.keys[keyType] === 'string') {
+        lowerCaseContainer.innerText = data.keys[keyType];
+        upperCaseContainer.innerText = data.keys['shiftCaps'];
+      } else {
+        lowerCaseContainer.innerText = data.keys[keyType]['lowerCase'];
+        upperCaseContainer.innerText = data.keys[keyType]['upperCase'];
+      }
+
+      capsContainer.innerText = data.keys['caps'] || data.keys[keyType]['upperCase'];
+      shiftCapsContainer.innerText = data.keys['shiftCaps'] || data.keys[keyType]['lowerCase'];
+
+      keyType !== currentLang && langContainer.classList.add('hidden');
+
+      langContainer.append(lowerCaseContainer, upperCaseContainer, capsContainer, shiftCapsContainer);
+      button.append(langContainer);
     }
-
-    capsContainer.innerText = data.keys['caps'] || data.keys[keyType]['upperCase'];
-    shiftCapsContainer.innerText = data.keys['shiftCaps'] || data.keys[keyType]['lowerCase'];
-
-    keyType !== currentLang && langContainer.classList.add('hidden');
-    upperCaseContainer.classList.add('hidden');
-    capsContainer.classList.add('hidden');
-    shiftCapsContainer.classList.add('hidden');
-
-    langContainer.append(lowerCaseContainer, upperCaseContainer);
-    button.append(langContainer);
   }
 
-  button.addEventListener("mouseup", event => processKeyupEvent(data))
-  button.addEventListener("mousedown", event =>
-    processKeydownEvent({
-      ...data,
-      key: event.srcElement.nodeName === "SPAN"
-        ? event.srcElement.innerText
-        : [...event.srcElement.childNodes].filter(child => !child.className.includes("hidden"))[0].innerText,
-    })
-  );
+  button.addEventListener('mouseup', event => processKeyupEvent(data))
+  button.addEventListener('mousedown', event => processKeydownEvent({
+    ...data,
+    key: event.srcElement.nodeName === 'SPAN'
+      ? event.srcElement.innerText
+      : [...event.srcElement.childNodes].filter(child => !child.className.includes('hidden'))[0].innerText,
+  }));
 
   return button;
 }
