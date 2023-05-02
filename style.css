@@ -96,12 +96,6 @@ body {
 		background: #2cfd72;
 }
 
-.info {
-		margin: 10px auto;
-		text-align: center;
-		font-weight: 600;
-}
-
 .Space {
 		width: 330px;
 }
@@ -119,4 +113,10 @@ body {
 
 .Tab {
 		width: 50px;
+}
+
+.info {
+		margin: 10px auto;
+		text-align: center;
+		font-weight: 600;
 }
